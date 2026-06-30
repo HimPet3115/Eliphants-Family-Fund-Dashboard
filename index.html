@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Family Fund — Live Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0A0B0F; --bg2: #111318; --bg3: #181B22;
+    --border: rgba(255,255,255,0.07);
+    --text: #F0F2F8; --muted: #6B7280; --subtle: #9CA3AF;
+    --purple: #8B5CF6; --purple-light: #A78BFA; --purple-dim: rgba(139,92,246,0.12); --purple-glow: rgba(139,92,246,0.25);
+    --yellow: #F59E0B; --yellow-light: #FCD34D; --yellow-dim: rgba(245,158,11,0.12);
+    --blue: #3B82F6; --blue-light: #60A5FA; --blue-dim: rgba(59,130,246,0.12);
+    --orange: #F97316; --orange-light: #FB923C; --orange-dim: rgba(249,115,22,0.12);
+    --green: #10B981; --red: #EF4444; --red-dim: rgba(239,68,68,0.12);
+    --radius: 14px; --radius-sm: 8px;
+    --font: 'Sora', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace;
+  }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; max-width: 430px; margin: 0 auto; overflow-x: hidden; padding-bottom: 90px; }
+
+  /* LOADER */
+  .loader-overlay { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 999; transition: opacity 0.4s; }
+  .loader-spinner { width: 36px; height: 36px; border: 2px solid var(--border); border-top-color: var(--purple); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px; }
+  .loader-text { font-size: 12px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* HEADER */
+  .header { padding: 52px 20px 16px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .header-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+  .header-title { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; }
+  .header-badge { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 20px; border: 1px solid; }
+  .badge-purple { color: var(--purple-light); border-color: var(--purple); background: var(--purple-dim); }
+  .badge-yellow { color: var(--yellow-light); border-color: var(--yellow); background: var(--yellow-dim); }
+  .badge-blue   { color: var(--blue-light);   border-color: var(--blue);   background: var(--blue-dim); }
+  .badge-orange { color: var(--orange-light); border-color: var(--orange); background: var(--orange-dim); }
+
+  /* SECTIONS */
+  .section { padding: 0 20px; margin-bottom: 24px; }
+  .section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* METRIC CARDS */
+  .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .metric-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; position: relative; overflow: hidden; animation: fadeUp 0.4s ease both; }
+  .metric-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent, var(--purple)); }
+  .metric-label { font-size: 10px; font-weight: 500; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+  .metric-value { font-family: var(--mono); font-size: 17px; font-weight: 500; letter-spacing: -0.02em; }
+  .metric-value.large { font-size: 20px; }
+  .metric-sub { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* SUMMARY PILLS */
+  .summary-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .summary-pill { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 8px; text-align: center; }
+  .summary-pill-val { font-family: var(--mono); font-size: 15px; font-weight: 500; }
+  .summary-pill-label { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 3px; }
+
+  /* GAUGE */
+  .gauge-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 20px 20px; text-align: center; animation: fadeUp 0.5s ease both; }
+  .gauge-wrap { position: relative; width: 180px; margin: 0 auto 12px; }
+  .gauge-svg { width: 100%; }
+  .gauge-center { position: absolute; top: 72%; left: 50%; transform: translate(-50%,-50%); text-align: center; }
+  .gauge-pct { font-family: var(--mono); font-size: 28px; font-weight: 500; line-height: 1; color: var(--purple-light); }
+  .gauge-sublabel { font-size: 9px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+  .gauge-title { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .gauge-track { stroke: rgba(255,255,255,0.06); }
+  .gauge-fill { stroke: var(--purple); stroke-linecap: round; transition: stroke-dashoffset 1.2s ease; filter: drop-shadow(0 0 6px var(--purple-glow)); }
+
+  /* MEMBER LIST */
+  .member-list { display: flex; flex-direction: column; gap: 8px; }
+  .member-row { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: flex; align-items: center; gap: 12px; transition: border-color 0.2s, background 0.2s; animation: fadeUp 0.4s ease both; }
+  .member-row:hover { border-color: var(--yellow); background: var(--bg3); }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .member-info { flex: 1; min-width: 0; }
+  .member-name { font-size: 14px; font-weight: 600; }
+  .member-group { font-size: 10px; color: var(--muted); margin-top: 1px; letter-spacing: 0.04em; }
+  .member-meta { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .member-tags { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .risk-badge { font-size: 10px; font-weight: 600; letter-spacing: 0.02em; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+  .risk-Excellent      { background: rgba(16,185,129,0.15); color: #10B981; }
+  .risk-Good   { background: rgba(245,158,11,0.15); color: #F59E0B; }
+  .risk-Fair     { background: rgba(239,68,68,0.15);  color: #EF4444; }
+  .risk-Getting-There { background: rgba(239,68,68,0.25);  color: #FF6B6B; }
+  .stag-badge { font-size: 9px; font-weight: 600; padding: 3px 8px; border-radius: 20px; }
+  .stag-yes { background: rgba(239,68,68,0.12); color: #EF4444; }
+  .stag-no  { background: rgba(16,185,129,0.12); color: #10B981; }
+  .completion-bar-wrap { margin-top: 7px; background: rgba(255,255,255,0.05); border-radius: 4px; height: 3px; overflow: hidden; }
+  .completion-bar { height: 100%; border-radius: 4px; transition: width 1s ease; }
+
+  /* MEMBER DETAIL */
+  .detail-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 10px; animation: fadeUp 0.3s ease both; }
+  .detail-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .detail-item-label { font-size: 10px; color: var(--muted); margin-bottom: 3px; }
+  .detail-item-val { font-family: var(--mono); font-size: 13px; font-weight: 500; }
+  .back-btn { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); cursor: pointer; padding: 0 20px; margin-bottom: 12px; margin-top: -4px; }
+  .back-btn:hover { color: var(--text); }
+
+  /* PAYMENT ROWS */
+  .payment-row { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; animation: fadeUp 0.4s ease both; }
+  .payment-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .payment-name { font-size: 13px; font-weight: 600; }
+  .payment-amount { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--blue-light); }
+  .payment-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px; }
+  .payment-ref { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 0.06em; }
+  .payment-date { font-size: 10px; color: var(--muted); }
+  .payment-months { font-size: 10px; color: var(--blue-light); background: var(--blue-dim); padding: 2px 8px; border-radius: 20px; margin-top: 6px; display: inline-block; }
+  .payment-note { font-size: 10px; color: var(--subtle); margin-top: 5px; font-style: italic; }
+
+  /* MATRIX */
+  .matrix-wrap { overflow-x: auto; padding-bottom: 4px; }
+  .matrix { min-width: 580px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+  .matrix-header { display: grid; grid-template-columns: 95px repeat(12, 1fr); background: var(--bg3); border-bottom: 1px solid var(--border); }
+  .mh-cell { font-size: 8px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding: 8px 3px; text-align: center; }
+  .mh-cell:first-child { text-align: left; padding-left: 10px; }
+  .matrix-row { display: grid; grid-template-columns: 95px repeat(12, 1fr); border-bottom: 1px solid var(--border); background: var(--bg2); }
+  .matrix-row:last-child { border-bottom: none; }
+  .m-name { font-size: 9px; font-weight: 600; color: var(--subtle); padding: 5px 4px 5px 10px; display: flex; align-items: center; line-height: 1.3; }
+  .m-cell { padding: 3px 2px; display: flex; align-items: center; justify-content: center; }
+  .month-block { width: 100%; height: 24px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; }
+  .paid   { background: var(--orange); color: #1A0A00; }
+  .unpaid { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
+
+  /* HIGHLIGHT BAR */
+  .info-bar { background: linear-gradient(135deg, var(--purple-dim), transparent); border: 1px solid var(--purple-dim); border-left: 3px solid var(--purple); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 14px; font-size: 11px; color: var(--subtle); line-height: 1.5; }
+  .info-bar strong { color: var(--purple-light); }
+
+  /* ERROR */
+  .error-msg { background: var(--red-dim); border: 1px solid var(--red); border-radius: var(--radius-sm); padding: 14px 16px; font-size: 12px; color: #EF4444; line-height: 1.7; margin: 16px 20px; }
+  .error-msg code { font-family: var(--mono); font-size: 10px; background: rgba(0,0,0,0.3); padding: 2px 5px; border-radius: 3px; }
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 13px; }
+
+  /* NAV */
+  .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: rgba(10,11,15,0.92); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-top: 1px solid var(--border); display: flex; padding: 10px 0 22px; z-index: 100; }
+  .nav-tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; padding: 4px 0; }
+  .nav-icon svg { display: block; }
+  .nav-label { font-size: 9px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); transition: color 0.2s; }
+  .nav-tab.active .nav-label { color: var(--tab-color); }
+  .nav-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--tab-color); margin: 0 auto; opacity: 0; transition: opacity 0.2s; }
+  .nav-tab.active .nav-dot { opacity: 1; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* AVATAR PALETTE */
+  .av0 { background: rgba(139,92,246,0.18); color: #A78BFA; }
+  .av1 { background: rgba(16,185,129,0.18); color: #10B981; }
+  .av2 { background: rgba(245,158,11,0.18); color: #F59E0B; }
+  .av3 { background: rgba(59,130,246,0.18); color: #60A5FA; }
+  .av4 { background: rgba(249,115,22,0.18); color: #FB923C; }
+  .av5 { background: rgba(239,68,68,0.18);  color: #EF4444; }
+  .av6 { background: rgba(20,184,166,0.18); color: #2DD4BF; }
+  .av7 { background: rgba(236,72,153,0.18); color: #F472B6; }
+
+  /* PROGRESS CARDS */
+  .progress-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 10px; animation: fadeUp 0.4s ease both; }
+  .progress-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .progress-name { font-size: 14px; font-weight: 600; }
+  .progress-amount { font-family: var(--mono); font-size: 13px; color: var(--orange-light); }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .progress-months { font-size: 11px; color: var(--muted); }
+  .progress-pct { font-family: var(--mono); font-size: 12px; font-weight: 600; }
+  .progress-track { background: rgba(255,255,255,0.05); border-radius: 6px; height: 8px; overflow: hidden; margin-bottom: 10px; }
+  .progress-fill { height: 100%; border-radius: 6px; transition: width 1s ease; }
+  .month-dots { display: flex; gap: 4px; flex-wrap: wrap; }
+  .month-dot { flex: 1; min-width: 18px; max-width: 28px; height: 28px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 7px; font-weight: 700; letter-spacing: 0; }
+  .month-dot.done { background: var(--orange); color: #1a0a00; }
+  .month-dot.current { background: var(--orange-dim); border: 1px solid var(--orange); color: var(--orange); }
+  .month-dot.future { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); color: transparent; }
+  .rank-badge { font-size: 9px; font-weight: 700; color: var(--muted); background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 2px 8px; }
+  .rank-badge.gold   { color: #F59E0B; border-color: #F59E0B; background: rgba(245,158,11,0.1); }
+  .rank-badge.silver { color: #9CA3AF; border-color: #9CA3AF; background: rgba(156,163,175,0.1); }
+  .rank-badge.bronze { color: #FB923C; border-color: #FB923C; background: rgba(249,115,22,0.1); }
+
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader-overlay" id="loader">
+  <div class="loader-spinner"></div>
+  <div class="loader-text">Loading dashboard…</div>
+</div>
+
+<!-- ═══ DASHBOARD PAGE ═══ -->
+<div id="page-dashboard" class="page active">
+  <div class="header">
+    <div><div class="header-label">Family Fund</div><div class="header-title">Overview</div></div>
+    <div class="header-badge badge-purple" id="sync-badge" onclick="manualRefresh()" style="cursor:pointer" title="Tap to check for newer data">LOADING…</div>
+  </div>
+
+  <div class="section">
+    <div class="section-label" style="color:var(--purple)">Key Metrics</div>
+    <div class="metric-grid">
+      <div class="metric-card" style="--accent:var(--purple);animation-delay:.05s">
+        <div class="metric-label">Min. Monthly</div>
+        <div class="metric-value">Ksh <span style="color:var(--purple-light)">300</span></div>
+        <div class="metric-sub">per member</div>
+      </div>
+      <div class="metric-card" style="--accent:var(--purple);animation-delay:.1s">
+        <div class="metric-label">Monthly Target</div>
+        <div class="metric-value" id="m-monthly">—</div>
+        <div class="metric-sub">28 members × Ksh 300</div>
+      </div>
+      <div class="metric-card" style="--accent:var(--purple);animation-delay:.15s">
+        <div class="metric-label">Annual Target</div>
+        <div class="metric-value" id="m-annual">—</div>
+        <div class="metric-sub">FY 2026</div>
+      </div>
+      <div class="metric-card" style="--accent:var(--green);animation-delay:.2s">
+        <div class="metric-label">Total Collected</div>
+        <div class="metric-value large" id="m-total" style="color:var(--green)">—</div>
+        <div class="metric-sub" id="m-pct">loading…</div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="section">
+    <div class="section-label" style="color:var(--purple)">Annual Goal Progress</div>
+    <div class="gauge-card">
+      <div class="gauge-wrap">
+        <svg class="gauge-svg" viewBox="0 0 120 70" fill="none">
+          <path class="gauge-track" d="M 10 65 A 50 50 0 0 1 110 65" stroke-width="8" fill="none"/>
+          <path class="gauge-fill" id="gauge-path" d="M 10 65 A 50 50 0 0 1 110 65" stroke-width="8" fill="none" stroke-dasharray="157" stroke-dashoffset="157"/>
+        </svg>
+        <div class="gauge-center">
+          <div class="gauge-pct" id="gauge-pct">—%</div>
+          <div class="gauge-sublabel">of annual goal</div>
+        </div>
+      </div>
+      <div class="gauge-title">Ksh 100,800 Target · FY 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MEMBERS PAGE ═══ -->
+<div id="page-members" class="page">
+  <div class="header">
+    <div><div class="header-label">Family Fund</div><div class="header-title">Members</div></div>
+    <div class="header-badge badge-yellow" id="members-badge">—</div>
+  </div>
+  <div class="section">
+    <div class="section-label" style="color:var(--yellow)">Member Directory</div>
+    <div class="member-list" id="members-list"><div class="empty-state">Loading…</div></div>
+  </div>
+</div>
+
+<!-- ═══ MEMBER DETAIL PAGE ═══ -->
+<div id="page-member-detail" class="page">
+  <div class="header">
+    <div><div class="header-label">Family Fund</div><div class="header-title" id="detail-name">Member</div></div>
+    <div class="header-badge badge-yellow" id="detail-status-badge">—</div>
+  </div>
+  <div class="back-btn" onclick="switchTab('members', document.querySelector('[data-tab=members]'))">
+    ← Back to Members
+  </div>
+  <div class="section" id="detail-section">
+    <div class="detail-card">
+      <div class="detail-title">Financial Summary</div>
+      <div class="detail-grid">
+        <div><div class="detail-item-label">Total Paid</div><div class="detail-item-val" id="d-paid">—</div></div>
+        <div><div class="detail-item-label">Months Covered</div><div class="detail-item-val" id="d-months">—</div></div>
+        <div><div class="detail-item-label">Completion Rate</div><div class="detail-item-val" id="d-comp">—</div></div>
+        <div><div class="detail-item-label">Last Payment</div><div class="detail-item-val" id="d-last">—</div></div>
+      </div>
+    </div>
+    <div class="section-label" style="color:var(--yellow);padding:0;margin-top:4px">Payment History</div>
+    <div id="detail-payments"><div class="empty-state">No payments found.</div></div>
+  </div>
+</div>
+
+<!-- ═══ PAYMENTS PAGE ═══ -->
+<div id="page-payments" class="page">
+  <div class="header">
+    <div><div class="header-label">Family Fund</div><div class="header-title">Payments</div></div>
+    <div class="header-badge badge-blue" id="payments-badge">LEDGER</div>
+  </div>
+  <div class="section">
+    <div class="section-label" style="color:var(--blue)">Contribution Records</div>
+    <div id="payments-list"><div class="empty-state">Loading…</div></div>
+  </div>
+</div>
+
+<!-- ═══ MONTHLY STATUS PAGE ═══ -->
+<div id="page-monthly" class="page">
+  <div class="header">
+    <div><div class="header-label">Family Fund</div><div class="header-title">2026 Progress</div></div>
+    <div class="header-badge badge-orange">JAN–DEC 2026</div>
+  </div>
+  <div class="section">
+    <div class="section-label" style="color:var(--orange)">Member Progress Tracker</div>
+    <div class="info-bar"><strong>Target:</strong> 12 months · Ksh 3,600/- per member</div>
+    <div id="progress-list"><div class="empty-state">Loading…</div></div>
+  </div>
+</div>
+
+<!-- ═══ BOTTOM NAV ═══ -->
+<nav class="bottom-nav">
+  <div class="nav-tab active" style="--tab-color:var(--purple)" data-tab="dashboard" onclick="switchTab('dashboard',this)">
+    <div class="nav-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    </div>
+    <div class="nav-label">Dashboard</div>
+    <div class="nav-dot"></div>
+  </div>
+  <div class="nav-tab" style="--tab-color:var(--yellow)" data-tab="members" onclick="switchTab('members',this)">
+    <div class="nav-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/>
+      </svg>
+    </div>
+    <div class="nav-label">Members</div>
+    <div class="nav-dot"></div>
+  </div>
+  <div class="nav-tab" style="--tab-color:var(--blue)" data-tab="payments" onclick="switchTab('payments',this)">
+    <div class="nav-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+      </svg>
+    </div>
+    <div class="nav-label">Payments</div>
+    <div class="nav-dot"></div>
+  </div>
+  <div class="nav-tab" style="--tab-color:var(--orange)" data-tab="monthly" onclick="switchTab('monthly',this)">
+    <div class="nav-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+    </div>
+    <div class="nav-label">Monthly</div>
+    <div class="nav-dot"></div>
+  </div>
+</nav>
+
+<script>
+// ╔══════════════════════════════════════════════════╗
+// ║  CONFIG — fill in your PAT and table IDs below  ║
+// ╚══════════════════════════════════════════════════╝
+const CONFIG = {
+  DATA_URL: './data.json'   // produced daily by the GitHub Action — see fetch-data.js
+};
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const AV     = ['av0','av1','av2','av3','av4','av5','av6','av7'];
+
+// ── Helpers ──
+function fmt(n) {
+  if (n == null || n === '' || isNaN(Number(n))) return '—';
+  return 'Ksh ' + Math.round(Number(n)).toLocaleString();
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+}
+function initials(name) {
+  if (!name) return '??';
+  const p = name.trim().split(' ');
+  return (p[0][0] + (p[1] ? p[1][0] : '')).toUpperCase();
+}
+function toPercent(val) {
+  if (val == null) return 0;
+  // Airtable stores as decimal (0.0–1.0+); multiply by 100 always since values rarely exceed 2.0
+  if (val <= 2) return Math.round(val * 100);
+  return Math.round(val); // already a percentage if somehow > 2
+}
+function riskLabel(risk) {
+  const map = {
+    'Excellent':    '🟢 Excellent',
+    'Good':         '🟣 Good',
+    'Fair':         '🟡 Fair',
+    'Getting There':'🔵 Getting There',
+    'Not Started':  '⚪ Not Started',
+  };
+  return map[risk] || risk;
+}
+function riskEmoji(risk) {
+  const map = {
+    'Excellent':    '🟢',
+    'Good':         '🟣',
+    'Fair':         '🟡',
+    'Getting There':'🔵',
+    'Not Started':  '⚪',
+  };
+  return map[risk] || '⚪';
+}
+function fixMonths(totalPaid) {
+  // Derive months from total paid: each month = Ksh 300
+  if (totalPaid == null || totalPaid === 0) return 0;
+  return Math.min(Math.round(Number(totalPaid) / 300), 12);
+}
+function relTime(ts) {
+  const mins = Math.round((Date.now() - new Date(ts).getTime()) / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.round(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  return `${Math.round(hrs / 24)}d ago`;
+}
+function setUpdatedBadge(generatedAt, checking) {
+  const badge = document.getElementById('sync-badge');
+  if (!badge) return;
+  if (checking) { badge.textContent = 'CHECKING…'; return; }
+  badge.textContent = generatedAt ? `UPDATED ${relTime(generatedAt).toUpperCase()}` : 'LIVE';
+}
+
+function hideLoader() {
+  const l = document.getElementById('loader');
+  l.style.opacity = '0';
+  setTimeout(() => l.style.display = 'none', 400);
+}
+function showError(err) {
+  hideLoader();
+  const msg = err && err.message ? err.message : String(err);
+  document.body.insertAdjacentHTML('afterbegin',
+    `<div class="error-msg">⚠️ Couldn't load the dashboard data.<br><br>${msg}<br><br>Check that <code>data.json</code> exists next to this file and that the daily sync Action has run at least once.</div>`);
+}
+
+// ── RENDER: Dashboard ──
+function renderDashboard(members) {
+  const totalPaid    = members.reduce((s,m) => s + (m.fields.Total_Paid || 0), 0);
+  const totalMonthly = members.reduce((s,m) => s + (m.fields.Monthly_Target || 0), 0);
+  const totalAnnual  = members.reduce((s,m) => s + (m.fields.Annual_Target || 0), 0);
+  const avgComp      = members.reduce((s,m) => s + toPercent(m.fields.Completion_Rate), 0) / members.length;
+
+  document.getElementById('m-monthly').textContent = 'Ksh 8,400';
+  document.getElementById('m-annual').textContent  = 'Ksh 100,800';
+  document.getElementById('m-total').textContent   = fmt(totalPaid);
+
+  const pct = Math.round((totalPaid / 100800) * 100);
+  document.getElementById('m-pct').textContent = `↑ ${pct}% of annual goal`;
+
+
+
+  const compDisplay = Math.round((totalPaid / 100800) * 100);
+  document.getElementById('gauge-pct').textContent = compDisplay + '%';
+  document.getElementById('gauge-path').setAttribute('stroke-dashoffset', 157 - (157 * Math.min(compDisplay, 100) / 100));
+}
+
+// ── RENDER: Members list ──
+function renderMembers(members) {
+  const active = members.filter(m => m.fields.Status === 'Active').length;
+  document.getElementById('members-badge').textContent = `${active || members.length} ACTIVE`;
+
+  const list = document.getElementById('members-list');
+  if (!members.length) { list.innerHTML = '<div class="empty-state">No members found.</div>'; return; }
+
+  const sorted = [...members].sort((a,b) => (a.fields.Member_Name||'').localeCompare(b.fields.Member_Name||''));
+
+  list.innerHTML = sorted.map((m, i) => {
+    const f    = m.fields;
+    const name = f.Member_Name || 'Unknown';
+    const comp = toPercent(f.Completion_Rate);
+    const months = fixMonths(f.Total_Paid);
+    const statusLabel = comp >= 100 ? '✓ Complete' : comp >= 50 ? '↑ In Progress' : comp >= 1 ? '→ Getting There' : '○ Not Started';
+    const statusClass = comp >= 100 ? 'stag-no' : comp >= 1 ? 'stag-yes' : 'stag-yes';
+    const statusStyle = comp >= 100
+      ? 'background:rgba(16,185,129,0.15);color:#10B981;'
+      : comp >= 50
+      ? 'background:rgba(245,158,11,0.15);color:#F59E0B;'
+      : comp >= 1
+      ? 'background:rgba(59,130,246,0.15);color:#60A5FA;'
+      : 'background:rgba(107,114,128,0.15);color:#9CA3AF;';
+    const barColor = comp >= 100 ? 'var(--green)' : comp >= 50 ? 'var(--purple)' : comp >= 25 ? 'var(--yellow)' : 'var(--muted)';
+
+    return `
+    <div class="member-row" style="animation-delay:${i*0.04}s" onclick="openMemberDetail('${m.id}')">
+      <div class="avatar ${AV[i % AV.length]}">${initials(name)}</div>
+      <div class="member-info">
+        <div class="member-name">${name}</div>
+        <div class="member-meta">${months}/12 months · ${fmt(f.Total_Paid)}</div>
+        <div class="member-tags">
+          <span class="stag-badge" style="${statusStyle}">${statusLabel}</span>
+        </div>
+        <div class="completion-bar-wrap"><div class="completion-bar" style="width:${comp}%;background:${barColor}"></div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── RENDER: Member Detail ──
+let _members = [], _contributions = [];
+
+function openMemberDetail(memberId) {
+  const m = _members.find(x => x.id === memberId);
+  if (!m) return;
+  const f = m.fields;
+
+  const comp = toPercent(f.Completion_Rate);
+  const detailStatus = comp >= 100 ? 'Complete' : comp >= 50 ? 'In Progress' : comp >= 1 ? 'Getting There' : 'Not Started';
+  const detailBadgeColor = comp >= 100
+    ? 'color:#10B981;border-color:#10B981;background:rgba(16,185,129,0.12)'
+    : comp >= 50
+    ? 'color:#F59E0B;border-color:#F59E0B;background:rgba(245,158,11,0.12)'
+    : comp >= 1
+    ? 'color:#60A5FA;border-color:#3B82F6;background:rgba(59,130,246,0.12)'
+    : 'color:#9CA3AF;border-color:#6B7280;background:rgba(107,114,128,0.12)';
+  document.getElementById('detail-name').textContent = f.Member_Name || 'Member';
+  const badge = document.getElementById('detail-status-badge');
+  badge.textContent = detailStatus;
+  badge.setAttribute('style', detailBadgeColor);
+  document.getElementById('d-paid').textContent    = fmt(f.Total_Paid);
+  document.getElementById('d-months').textContent  = fixMonths(f.Total_Paid) + '/12';
+  document.getElementById('d-comp').textContent    = toPercent(f.Completion_Rate) + '%';
+  document.getElementById('d-last').textContent    = fmtDate(f.Last_Payment_Date);
+
+  // Filter payments for this member
+  const memberPayments = _contributions.filter(c => {
+    const linked = Array.isArray(c.fields.Members) ? c.fields.Members : [];
+    return linked.includes(memberId);
+  }).sort((a,b) => new Date(b.fields.Payment_Date||0) - new Date(a.fields.Payment_Date||0));
+
+  const dp = document.getElementById('detail-payments');
+  if (!memberPayments.length) {
+    dp.innerHTML = '<div class="empty-state">No payments recorded.</div>';
+  } else {
+    dp.innerHTML = memberPayments.map((c,i) => {
+      const cf = c.fields;
+      return `
+      <div class="payment-row" style="animation-delay:${i*0.05}s">
+        <div class="payment-top">
+          <div class="payment-name">${fmtDate(cf.Payment_Date)}</div>
+          <div class="payment-amount">${fmt(cf.Amount_KES)}</div>
+        </div>
+        <div class="payment-bottom">
+          <div class="payment-ref">REF: ${cf.Reference_Code || '—'}</div>
+        </div>
+        <div class="payment-months">${cf.Months_Covered || 1} month${(cf.Months_Covered||1)!==1?'s':''} covered</div>
+        ${cf.Note ? `<div class="payment-note">${cf.Note}</div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  switchTab('member-detail', null);
+}
+
+// ── RENDER: Payments ledger ──
+function renderPayments(contributions, memberMap) {
+  const badge = document.getElementById('payments-badge');
+  badge.textContent = contributions.length + ' RECORDS';
+
+  const list = document.getElementById('payments-list');
+  if (!contributions.length) { list.innerHTML = '<div class="empty-state">No payments found.</div>'; return; }
+
+  const sorted = [...contributions].sort((a,b) => new Date(b.fields.Payment_Date||0) - new Date(a.fields.Payment_Date||0));
+
+  list.innerHTML = sorted.map((c, i) => {
+    const f   = c.fields;
+    const ids = Array.isArray(f.Members) ? f.Members : [];
+    const memberName = ids.length ? (memberMap[ids[0]] || f.Member_Name || 'Unknown') : (f.Member_Name || 'Unknown');
+
+    return `
+    <div class="payment-row" style="animation-delay:${i*0.04}s">
+      <div class="payment-top">
+        <div class="payment-name">${memberName}</div>
+        <div class="payment-amount">${fmt(f.Amount_KES)}</div>
+      </div>
+      <div class="payment-bottom">
+        <div class="payment-ref">REF: ${f.Reference_Code || '—'}</div>
+        <div class="payment-date">${fmtDate(f.Payment_Date)}</div>
+      </div>
+      <div class="payment-months">${f.Months_Covered || 1} month${(f.Months_Covered||1)!==1?'s':''} covered</div>
+      ${f.Note ? `<div class="payment-note">${f.Note}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ── RENDER: 2026 Progress Tracker ──
+function renderMatrix(members, contributions) {
+  const list = document.getElementById('progress-list');
+  if (!members.length) { list.innerHTML = '<div class="empty-state">No data.</div>'; return; }
+
+  const MONTH_LABELS = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+  const currentMonth = new Date().getMonth(); // 0-indexed, reflects current month in 2026
+
+  // Build paid months per member from Contributions
+  const paidMap = {};
+  members.forEach(m => { paidMap[m.id] = new Set(); });
+
+  contributions.forEach(c => {
+    const f = c.fields;
+    if (!f.Payment_Date) return;
+    const payDate  = new Date(f.Payment_Date);
+    if (payDate.getFullYear() !== 2026) return; // only 2026 contributions
+    const payMonth = payDate.getMonth();
+    const covered  = Math.min(Number(f.Months_Covered) || 1, 12);
+    const ids      = Array.isArray(f.Members) ? f.Members : [];
+
+    ids.forEach(mid => {
+      if (!paidMap[mid]) paidMap[mid] = new Set();
+      for (let i = 0; i < covered; i++) {
+        const m = (payMonth - i + 12) % 12;
+        paidMap[mid].add(m);
+      }
+    });
+  });
+
+  // Sort members by Completion_Rate descending
+  const sorted = [...members].sort((a,b) => toPercent(b.fields.Completion_Rate) - toPercent(a.fields.Completion_Rate));
+
+  list.innerHTML = sorted.map((m, i) => {
+    const f      = m.fields;
+    const name   = f.Member_Name || 'Unknown';
+    const comp   = toPercent(f.Completion_Rate);
+    const months = fixMonths(f.Total_Paid);
+    const paid   = paidMap[m.id] || new Set();
+    const risk   = f.Risk_Level || '—';
+
+    const barColor = risk === 'Excellent' ? 'var(--green)' : risk === 'Good' ? 'var(--purple)' : risk === 'Fair' ? 'var(--yellow)' : risk === 'Getting There' ? 'var(--blue)' : 'var(--muted)';
+
+    const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+    const rankLabel = i === 0 ? '🥇 #1' : i === 1 ? '🥈 #2' : i === 2 ? '🥉 #3' : `#${i+1}`;
+
+    // Mark months Jan onwards based on months paid count
+    const dots = MONTH_LABELS.map((lbl, idx) => {
+      const isDone = idx < months;
+      const cls    = isDone ? 'done' : 'future';
+      return `<div class="month-dot ${cls}">${isDone ? '✓' : ''}</div>`;
+    }).join('');
+
+    const statusLabel = riskLabel(risk);
+
+    return `
+    <div class="progress-card" style="animation-delay:${i*0.05}s">
+      <div class="progress-header">
+        <div>
+          <div class="progress-name">${name}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="progress-amount">${fmt(f.Total_Paid)}</div>
+          <div style="margin-top:4px"><span class="rank-badge ${rankClass}">${rankLabel}</span></div>
+        </div>
+      </div>
+      <div class="progress-meta">
+        <div class="progress-months">${months} / 12 months paid</div>
+        <div class="progress-pct" style="color:${barColor}">${comp}%</div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width:${comp}%;background:${barColor}"></div>
+      </div>
+      <div class="month-dots">${dots}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Navigation ──
+function switchTab(pageId, tabEl) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.classList.remove('active');
+    const svg = t.querySelector('svg');
+    if (svg) svg.setAttribute('stroke', 'var(--muted)');
+  });
+
+  document.getElementById('page-' + pageId).classList.add('active');
+
+  if (tabEl) {
+    tabEl.classList.add('active');
+    const svg = tabEl.querySelector('svg');
+    if (svg) svg.setAttribute('stroke', getComputedStyle(tabEl).getPropertyValue('--tab-color').trim());
+  }
+}
+
+// ── Boot ──
+function renderAll() {
+  const memberMap = {};
+  _members.forEach(m => { memberMap[m.id] = m.fields.Member_Name; });
+  renderDashboard(_members);
+  renderMembers(_members);
+  renderPayments(_contributions, memberMap);
+  renderMatrix(_members, _contributions);
+}
+
+// ── Load data.json (written daily by the GitHub Action / fetch-data.js) ──
+async function loadData(isManual) {
+  if (isManual) setUpdatedBadge(null, true);
+  try {
+    // cache-bust so a manual tap always gets the latest committed file, not a cached copy
+    const res = await fetch(`${CONFIG.DATA_URL}?t=${Date.now()}`);
+    if (!res.ok) throw new Error(`Could not load data.json (HTTP ${res.status})`);
+    const d = await res.json();
+    _members       = d.members || [];
+    _contributions = d.contributions || [];
+    renderAll();
+    setUpdatedBadge(d.generatedAt);
+    hideLoader();
+  } catch (err) {
+    console.error(err);
+    if (isManual) {
+      setUpdatedBadge(null); // revert badge, keep showing whatever was on screen
+    } else {
+      showError(err);
+    }
+  }
+}
+
+function manualRefresh() { loadData(true); }
+function init() { loadData(false); }
+
+init();
+</script>
+</body>
+</html>
