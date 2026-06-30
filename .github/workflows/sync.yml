@@ -1,0 +1,32 @@
+name: Sync Airtable data
+
+on:
+  schedule:
+    - cron: '0 5 * * *'   # 05:00 UTC daily = 08:00 EAT (Nairobi). Adjust if you want a different time.
+  workflow_dispatch: {}    # lets you trigger it manually from the Actions tab anytime
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch latest data from Airtable
+        env:
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+        run: node fetch-data.js
+
+      - name: Commit data.json if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git diff --quiet --cached || git commit -m "Update data.json"
+          git push
