@@ -1,5 +1,768 @@
 {
-  "generatedAt": null,
-  "members": [],
-  "contributions": []
+  "generatedAt": "2026-07-01T13:43:50.523Z",
+  "members": [
+    {
+      "id": "rec0kyjHF0ueykwRn",
+      "createdTime": "2026-04-28T18:27:52.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Lena Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "rec59gL6tKzGQ9N7y",
+      "createdTime": "2026-04-28T18:27:52.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Weremba (Big) Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recCjJFzDMD4FFl8Z",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Last_Payment_Date": "2026-04-14",
+        "Days_Since_Last_Payment": 78,
+        "Member_Name": "William Masiga",
+        "Total_Months_Covered": 0.01,
+        "Total_Paid": 900,
+        "Risk_Level": "High",
+        "Stagnation_Risk": "🔴 Stale",
+        "Completion_Rate": 0.25,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recClkb3yJSgm5nc5",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Vasant Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recDcosaPThXrUMyf",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Baraka Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recKhAu4gcpvMKsdq",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Sonia Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recORmgHQ7MHZSlg0",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Neema Lwande",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recSHJOf5S8ciO5pm",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Last_Payment_Date": "2026-04-28",
+        "Days_Since_Last_Payment": 64,
+        "Member_Name": "Petra Lwande",
+        "Total_Months_Covered": 0.043333333333333335,
+        "Total_Paid": 3900,
+        "Risk_Level": "Low",
+        "Stagnation_Risk": "🔴 Stale",
+        "Completion_Rate": 1.0833333333333335,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recSKzkUd2m5Z6td8",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Last_Payment_Date": "2026-04-20",
+        "Days_Since_Last_Payment": 72,
+        "Member_Name": "Vanessa Mwenze",
+        "Total_Months_Covered": 0.043333333333333335,
+        "Total_Paid": 3900,
+        "Risk_Level": "Low",
+        "Stagnation_Risk": "🔴 Stale",
+        "Completion_Rate": 1.0833333333333335,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recTJ4YXO8o9MflAY",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Adoyo Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recTnb9U0vca58vWv",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Last_Payment_Date": "2026-05-26",
+        "Days_Since_Last_Payment": 36,
+        "Member_Name": "Weremba (Small) Lwande",
+        "Total_Months_Covered": 0.013333333333333334,
+        "Total_Paid": 1200,
+        "Risk_Level": "High",
+        "Stagnation_Risk": "🟠 Aging",
+        "Completion_Rate": 0.33333333333333337,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recUoZUvGc5UjqjBz",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Last_Payment_Date": "2026-06-30",
+        "Days_Since_Last_Payment": 1,
+        "Member_Name": "Louange Masiga",
+        "Total_Months_Covered": 0.02,
+        "Total_Paid": 1800,
+        "Risk_Level": "Medium",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0.5,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recVm4jhNgVa7yKN9",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Last_Payment_Date": "2026-05-12",
+        "Days_Since_Last_Payment": 50,
+        "Member_Name": "Brian Masiga",
+        "Total_Months_Covered": 0.03333333333333333,
+        "Total_Paid": 3000,
+        "Risk_Level": "Low",
+        "Stagnation_Risk": "🟠 Aging",
+        "Completion_Rate": 0.8333333333333334,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recWSmzbYvLBvPCF7",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Last_Payment_Date": "2026-01-14",
+        "Days_Since_Last_Payment": 168,
+        "Member_Name": "Bulisa (Small) Masiga",
+        "Total_Months_Covered": 0.04,
+        "Total_Paid": 3600,
+        "Risk_Level": "Low",
+        "Stagnation_Risk": "🔴 Stale",
+        "Completion_Rate": 1,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recXHsyjhM3RT2B40",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Dieudonné Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recXOcWKePj3uEy8D",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Valarie Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recYEMoFdecoi1KC1",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Last_Payment_Date": "2026-04-20",
+        "Days_Since_Last_Payment": 72,
+        "Member_Name": "Kenneth Mwenze",
+        "Total_Months_Covered": 0.006666666666666667,
+        "Total_Paid": 600,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🔴 Stale",
+        "Completion_Rate": 0.16666666666666669,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recYapR0wt4VHHSjx",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Last_Payment_Date": "2026-06-28",
+        "Days_Since_Last_Payment": 3,
+        "Member_Name": "Celeste Masiga",
+        "Total_Months_Covered": 0.006666666666666667,
+        "Total_Paid": 600,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0.16666666666666669,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recZMVyebUML8rLbg",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Bulisa Jesse Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recbFRNmxLGutmmqT",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Phanice Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recbKEHF33qczdI15",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Linda Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recbkkd8qEsj682q7",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Wairumu Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recdgnNcbE4ZoJ2HL",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Last_Payment_Date": "2026-06-28",
+        "Days_Since_Last_Payment": 3,
+        "Member_Name": "Obukosia Lwande",
+        "Total_Months_Covered": 0.01,
+        "Total_Paid": 900,
+        "Risk_Level": "High",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0.25,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "rechytQZoTWDpKt0Q",
+      "createdTime": "2026-04-28T18:27:52.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Bulisa (Big) Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recls308iNFrCqRHo",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Isaac Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recmf7EVfeCXUDt6o",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Kevin Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recyRAZuR9ExxqyGI",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Tatiyana Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    },
+    {
+      "id": "recz0QMHytQlJUqF5",
+      "createdTime": "2026-04-28T18:47:13.000Z",
+      "fields": {
+        "Days_Since_Last_Payment": {
+          "specialValue": "NaN"
+        },
+        "Member_Name": "Aylin Masiga",
+        "Total_Months_Covered": 0,
+        "Total_Paid": 0,
+        "Risk_Level": "Critical",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0,
+        "Status": "Behind",
+        "Risk_Score": 3
+      }
+    }
+  ],
+  "contributions": [
+    {
+      "id": "rec3FqbvdwnjKvIn5",
+      "createdTime": "2026-05-12T14:53:34.000Z",
+      "fields": {
+        "Member_Name": "Brian Masiga",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recVm4jhNgVa7yKN9"
+        ],
+        "Last_Payment_Date": "2026-05-12",
+        "Months_Covered": 5,
+        "Payment_Date": "2026-05-12",
+        "Reference_Code": "UECNI40E31",
+        "Amount_KES": 1500
+      }
+    },
+    {
+      "id": "rec6KwLYMCRVdnEo5",
+      "createdTime": "2026-04-28T18:19:35.000Z",
+      "fields": {
+        "Member_Name": "Petra Lwande",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recSHJOf5S8ciO5pm"
+        ],
+        "Months_Covered": 12,
+        "Payment_Date": "2026-04-28",
+        "Reference_Code": "NHE7VHR6VZAJ",
+        "Amount_KES": 3600
+      }
+    },
+    {
+      "id": "recF8zv1L13rnrqhB",
+      "createdTime": "2026-04-28T18:19:35.000Z",
+      "fields": {
+        "Member_Name": "William Masiga",
+        "Note": "Standard monthly payment",
+        "Members": [
+          "recCjJFzDMD4FFl8Z"
+        ],
+        "Months_Covered": 1,
+        "Payment_Date": "2026-03-11",
+        "Reference_Code": "UCBI294YOB",
+        "Amount_KES": 300
+      }
+    },
+    {
+      "id": "recFScbi9k42RQAhF",
+      "createdTime": "2026-05-12T14:56:20.000Z",
+      "fields": {
+        "Member_Name": "Louange Masiga",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recUoZUvGc5UjqjBz"
+        ],
+        "Last_Payment_Date": "2026-05-10",
+        "Months_Covered": 3,
+        "Payment_Date": "2026-05-10",
+        "Reference_Code": "NHEFJY7Z76JH",
+        "Amount_KES": 900
+      }
+    },
+    {
+      "id": "recJ77Otvg7v6Wxj4",
+      "createdTime": "2026-06-29T08:01:30.000Z",
+      "fields": {
+        "Member_Name": "Celeste Masiga",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recYapR0wt4VHHSjx"
+        ],
+        "Months_Covered": 2,
+        "Payment_Date": "2026-06-28",
+        "Reference_Code": "UFS989L5CO",
+        "Amount_KES": 600
+      }
+    },
+    {
+      "id": "recPLbr64I8y0H6HJ",
+      "createdTime": "2026-04-28T18:19:35.000Z",
+      "fields": {
+        "Member_Name": "Weremba Lwande",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recTnb9U0vca58vWv"
+        ],
+        "Months_Covered": 2,
+        "Payment_Date": "2026-01-30",
+        "Reference_Code": "UAUR855PU2",
+        "Amount_KES": 600
+      }
+    },
+    {
+      "id": "recQfdgpoYy20OqvN",
+      "createdTime": "2026-04-28T18:19:35.000Z",
+      "fields": {
+        "Member_Name": "Kenneth Mwenze",
+        "Note": "Multi-monthly contribution & Split from household payment",
+        "Members": [
+          "recYEMoFdecoi1KC1"
+        ],
+        "Months_Covered": 2,
+        "Payment_Date": "2026-04-20",
+        "Reference_Code": "UDK161E26J",
+        "Amount_KES": 600
+      }
+    },
+    {
+      "id": "recRpIheZkVTqWGmP",
+      "createdTime": "2026-04-28T18:19:35.000Z",
+      "fields": {
+        "Member_Name": "Brian Masiga",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recVm4jhNgVa7yKN9"
+        ],
+        "Months_Covered": 5,
+        "Payment_Date": "2026-01-30",
+        "Reference_Code": "UAUNI57QBL",
+        "Amount_KES": 1500
+      }
+    },
+    {
+      "id": "recRxeYisvKt5NfA9",
+      "createdTime": "2026-06-14T06:13:44.000Z",
+      "fields": {
+        "Member_Name": "Obukosia Lwande ",
+        "Note": "Standard monthly payment",
+        "Members": [
+          "recdgnNcbE4ZoJ2HL"
+        ],
+        "Last_Payment_Date": "2026-06-14",
+        "Months_Covered": 1,
+        "Payment_Date": "2026-06-14",
+        "Reference_Code": "UFEKF7T777",
+        "Amount_KES": 300
+      }
+    },
+    {
+      "id": "recSZJkhud66pTPhA",
+      "createdTime": "2026-06-08T13:26:16.000Z",
+      "fields": {}
+    },
+    {
+      "id": "recTfVIzR6KqPzZrH",
+      "createdTime": "2026-04-28T18:19:35.000Z",
+      "fields": {
+        "Member_Name": "Louange Masiga",
+        "Note": "Standard monthly payment",
+        "Members": [
+          "recUoZUvGc5UjqjBz"
+        ],
+        "Months_Covered": 1,
+        "Payment_Date": "2026-02-02",
+        "Reference_Code": "LOOP_20260202",
+        "Amount_KES": 300
+      }
+    },
+    {
+      "id": "recUHQWAJhmklq2PB",
+      "createdTime": "2026-04-28T18:19:35.000Z",
+      "fields": {
+        "Member_Name": "Bulisa (Small) Masiga",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recWSmzbYvLBvPCF7"
+        ],
+        "Months_Covered": 12,
+        "Payment_Date": "2026-01-14",
+        "Reference_Code": "NHE9C9FVY5QB",
+        "Amount_KES": 3600
+      }
+    },
+    {
+      "id": "recV9bbTdRciZRSZX",
+      "createdTime": "2026-04-28T18:19:35.000Z",
+      "fields": {
+        "Member_Name": "William Masiga",
+        "Note": "Standard monthly payment",
+        "Members": [
+          "recCjJFzDMD4FFl8Z"
+        ],
+        "Months_Covered": 1,
+        "Payment_Date": "2026-01-30",
+        "Reference_Code": "UAUI25BTB6",
+        "Amount_KES": 300
+      }
+    },
+    {
+      "id": "recXoOkCHRuJa7T7w",
+      "createdTime": "2026-05-12T15:10:43.000Z",
+      "fields": {
+        "Member_Name": "Vanessa Mwenze",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recSKzkUd2m5Z6td8"
+        ],
+        "Last_Payment_Date": "2026-05-12",
+        "Months_Covered": 12,
+        "Payment_Date": "2026-01-30",
+        "Reference_Code": "UAU1654CO8",
+        "Amount_KES": 3600
+      }
+    },
+    {
+      "id": "recYFZH4Etn4eBe7I",
+      "createdTime": "2026-06-30T15:13:39.000Z",
+      "fields": {
+        "Member_Name": "Louange Masiga",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recUoZUvGc5UjqjBz"
+        ],
+        "Months_Covered": 2,
+        "Payment_Date": "2026-06-30",
+        "Reference_Code": "NHE5RFAA8PXD",
+        "Amount_KES": 600
+      }
+    },
+    {
+      "id": "rechoEWABrYz7NLGS",
+      "createdTime": "2026-04-28T18:19:35.000Z",
+      "fields": {
+        "Member_Name": "William Masiga",
+        "Note": "Standard monthly payment",
+        "Members": [
+          "recCjJFzDMD4FFl8Z"
+        ],
+        "Months_Covered": 1,
+        "Payment_Date": "2026-04-14",
+        "Reference_Code": "UDEI20VIJG",
+        "Amount_KES": 300
+      }
+    },
+    {
+      "id": "recncMJT7bia3wbp5",
+      "createdTime": "2026-05-26T08:48:01.000Z",
+      "fields": {
+        "Member_Name": "Weremba Lwande",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recTnb9U0vca58vWv"
+        ],
+        "Last_Payment_Date": "2026-05-26",
+        "Months_Covered": 2,
+        "Payment_Date": "2026-05-26",
+        "Reference_Code": "UEQR85K3SH",
+        "Amount_KES": 600
+      }
+    },
+    {
+      "id": "recnwJjoeby8ff6DF",
+      "createdTime": "2026-04-28T18:19:35.000Z",
+      "fields": {
+        "Member_Name": "Vanessa Mwenze",
+        "Note": "Standard monthly payment & Split from household payment",
+        "Members": [
+          "recSKzkUd2m5Z6td8"
+        ],
+        "Months_Covered": 1,
+        "Payment_Date": "2026-04-20",
+        "Reference_Code": "UDK161E26J",
+        "Amount_KES": 300
+      }
+    },
+    {
+      "id": "reco5w8PerS0uO0Wy",
+      "createdTime": "2026-04-28T18:19:35.000Z",
+      "fields": {
+        "Member_Name": "Petra Lwande",
+        "Note": "Standard monthly payment",
+        "Members": [
+          "recSHJOf5S8ciO5pm"
+        ],
+        "Months_Covered": 1,
+        "Payment_Date": "2026-01-28",
+        "Reference_Code": "NHE9BK6SIKFM",
+        "Amount_KES": 300
+      }
+    },
+    {
+      "id": "recuPEu6VZP2TRSi6",
+      "createdTime": "2026-06-29T08:00:10.000Z",
+      "fields": {
+        "Member_Name": "Obukosia Lwande ",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recdgnNcbE4ZoJ2HL"
+        ],
+        "Months_Covered": 2,
+        "Payment_Date": "2026-06-28",
+        "Reference_Code": "UFSKF9GE41",
+        "Amount_KES": 600
+      }
+    }
+  ]
 }
