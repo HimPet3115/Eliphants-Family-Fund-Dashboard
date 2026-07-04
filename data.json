@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T12:24:11.576Z",
+  "generatedAt": "2026-07-04T11:05:28.801Z",
   "members": [
     {
       "id": "rec0kyjHF0ueykwRn",
@@ -40,7 +40,7 @@
       "createdTime": "2026-04-28T18:47:13.000Z",
       "fields": {
         "Last_Payment_Date": "2026-04-14",
-        "Days_Since_Last_Payment": 80,
+        "Days_Since_Last_Payment": 81,
         "Member_Name": "William Masiga",
         "Total_Months_Covered": 0.01,
         "Total_Paid": 900,
@@ -124,7 +124,7 @@
       "createdTime": "2026-04-28T18:47:13.000Z",
       "fields": {
         "Last_Payment_Date": "2026-04-28",
-        "Days_Since_Last_Payment": 66,
+        "Days_Since_Last_Payment": 67,
         "Member_Name": "Petra Lwande",
         "Total_Months_Covered": 0.043333333333333335,
         "Total_Paid": 3900,
@@ -140,7 +140,7 @@
       "createdTime": "2026-04-28T18:47:13.000Z",
       "fields": {
         "Last_Payment_Date": "2026-04-20",
-        "Days_Since_Last_Payment": 74,
+        "Days_Since_Last_Payment": 75,
         "Member_Name": "Vanessa Mwenze",
         "Total_Months_Covered": 0.043333333333333335,
         "Total_Paid": 3900,
@@ -173,7 +173,7 @@
       "createdTime": "2026-04-28T18:47:13.000Z",
       "fields": {
         "Last_Payment_Date": "2026-05-26",
-        "Days_Since_Last_Payment": 38,
+        "Days_Since_Last_Payment": 39,
         "Member_Name": "Weremba (Small) Lwande",
         "Total_Months_Covered": 0.013333333333333334,
         "Total_Paid": 1200,
@@ -189,7 +189,7 @@
       "createdTime": "2026-04-28T18:47:13.000Z",
       "fields": {
         "Last_Payment_Date": "2026-06-30",
-        "Days_Since_Last_Payment": 3,
+        "Days_Since_Last_Payment": 4,
         "Member_Name": "Louange Masiga",
         "Total_Months_Covered": 0.02,
         "Total_Paid": 1800,
@@ -205,7 +205,7 @@
       "createdTime": "2026-04-28T18:47:13.000Z",
       "fields": {
         "Last_Payment_Date": "2026-05-12",
-        "Days_Since_Last_Payment": 52,
+        "Days_Since_Last_Payment": 53,
         "Member_Name": "Brian Masiga",
         "Total_Months_Covered": 0.03333333333333333,
         "Total_Paid": 3000,
@@ -221,7 +221,7 @@
       "createdTime": "2026-04-28T18:47:13.000Z",
       "fields": {
         "Last_Payment_Date": "2026-01-14",
-        "Days_Since_Last_Payment": 170,
+        "Days_Since_Last_Payment": 171,
         "Member_Name": "Bulisa (Small) Masiga",
         "Total_Months_Covered": 0.04,
         "Total_Paid": 3600,
@@ -270,14 +270,14 @@
       "id": "recYEMoFdecoi1KC1",
       "createdTime": "2026-04-28T18:47:13.000Z",
       "fields": {
-        "Last_Payment_Date": "2026-04-20",
-        "Days_Since_Last_Payment": 74,
+        "Last_Payment_Date": "2026-07-03",
+        "Days_Since_Last_Payment": 1,
         "Member_Name": "Kenneth Mwenze",
-        "Total_Months_Covered": 0.006666666666666667,
-        "Total_Paid": 600,
-        "Risk_Level": "Critical",
-        "Stagnation_Risk": "🔴 Stale",
-        "Completion_Rate": 0.16666666666666669,
+        "Total_Months_Covered": 0.013333333333333334,
+        "Total_Paid": 1200,
+        "Risk_Level": "High",
+        "Stagnation_Risk": "🟢 Active",
+        "Completion_Rate": 0.33333333333333337,
         "Status": "Behind",
         "Risk_Score": 3
       }
@@ -287,7 +287,7 @@
       "createdTime": "2026-04-28T18:47:13.000Z",
       "fields": {
         "Last_Payment_Date": "2026-06-28",
-        "Days_Since_Last_Payment": 5,
+        "Days_Since_Last_Payment": 6,
         "Member_Name": "Celeste Masiga",
         "Total_Months_Covered": 0.006666666666666667,
         "Total_Paid": 600,
@@ -371,7 +371,7 @@
       "createdTime": "2026-04-28T18:47:13.000Z",
       "fields": {
         "Last_Payment_Date": "2026-06-28",
-        "Days_Since_Last_Payment": 5,
+        "Days_Since_Last_Payment": 6,
         "Member_Name": "Obukosia Lwande",
         "Total_Months_Covered": 0.01,
         "Total_Paid": 900,
@@ -529,6 +529,21 @@
         "Payment_Date": "2026-05-10",
         "Reference_Code": "NHEFJY7Z76JH",
         "Amount_KES": 900
+      }
+    },
+    {
+      "id": "recHqAsucdOPMoKaq",
+      "createdTime": "2026-07-03T13:32:31.000Z",
+      "fields": {
+        "Member_Name": "Kenneth Mwenze",
+        "Note": "Multi-monthly contribution",
+        "Members": [
+          "recYEMoFdecoi1KC1"
+        ],
+        "Months_Covered": 2,
+        "Payment_Date": "2026-07-03",
+        "Reference_Code": "UG3169WNRH",
+        "Amount_KES": 600
       }
     },
     {
